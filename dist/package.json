@@ -1,7 +1,11 @@
 {
   "name": "amountjs",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:aioros2016/amountjs.git"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -43,7 +47,7 @@
   },
   "devDependencies": {
     "@types/big.js": "^6.1.6",
-    "amountjs": "^1.1.0",
+    "amountjs": "^1.1.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "ts-loader": "^9.4.1",

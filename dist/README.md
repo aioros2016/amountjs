@@ -47,6 +47,10 @@ import amountjs from 'amountjs';
 
 以上特性可以相互组合，来得到您最终想要的效果！
 
+## 预览
+
+    npm run start
+
 ## 构建
 
 请使用webpack来构建本项目
