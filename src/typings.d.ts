@@ -26,6 +26,6 @@ export declare interface AmountOptions {
   unit?: true;
 }
 
-declare function amountjs(ops: AmountOptions): unknown;
+declare function amountjs(ops: AmountOptions): string | number;
 
 export default amountjs;

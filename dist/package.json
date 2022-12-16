@@ -1,7 +1,17 @@
 {
   "name": "amountjs",
-  "version": "1.1.2",
+  "version": "1.1.6",
+  "keywords": [
+    "number",
+    "amount",
+    "currency",
+    "float",
+    "precision",
+    "arithmetic",
+    "decimal"
+  ],
   "private": false,
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git@github.com:aioros2016/amountjs.git"
@@ -14,6 +24,7 @@
     "@types/node": "^16.11.60",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "amountjs": "^1.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -47,7 +58,6 @@
   },
   "devDependencies": {
     "@types/big.js": "^6.1.6",
-    "amountjs": "^1.1.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "ts-loader": "^9.4.1",

@@ -44,6 +44,10 @@ module.exports = {
         {
           from: path.resolve(__dirname, './package.json'),
           to: path.resolve(__dirname, './dist/package.json')
+        },
+        {
+          from: path.resolve(__dirname, './LICENSE'),
+          to: path.resolve(__dirname, './dist/LICENSE')
         }
       ]
     })
