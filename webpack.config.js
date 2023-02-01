@@ -2,7 +2,7 @@
  * @Author: lizhigang
  * @Date: 2022-09-26 10:11:09
  * @Company: orientsec.com.cn
- * @Description: 项目构建webpack配置
+ * @Description: 项目构建webpack配置.
  */
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
