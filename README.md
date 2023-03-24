@@ -45,6 +45,10 @@ import amountjs from 'amountjs';
     amountjs({amount: 100000000, unit: true}) => 1亿
 货币单位目前最大支持显示到亿
 
+小数最大位数类型(截断 | 四舍五入)：
+
+    amountjs({amount: 123.678, maxDigits: 2, digitsType: 'float'}) => 123.68
+
 以上特性可以相互组合，来得到您最终想要的效果！
 
 ## 预览

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import amountjs from 'amountjs';
+// import amountjs from 'amountjs';
+import amountjs from "./core";
 
 function App() {
   const [amount, setAmount] = useState("0");
@@ -14,13 +15,23 @@ function App() {
         amount,
         separate: true
       })}</div>
-      <div className="label">小数最大位数: {amountjs({
+      <div className="label">小数最大位数(截断): {amountjs({
         amount,
-        maxDigits: 2
+        maxDigits: 3
       })}</div>
-      <div className="label">小数最小位数: {amountjs({
+      <div className="label">小数最小位数(截断): {amountjs({
         amount,
         minDigits: 2
+      })}</div>
+      <div className="label">小数最大位数(四舍五入): {amountjs({
+        amount,
+        digitsType: 'float',
+        maxDigits: 2
+      })}</div>
+      <div className="label">小数最小位数(四舍五入): {amountjs({
+        amount,
+        digitsType: 'float',
+        minDigits: 0
       })}</div>
       <div className="label">小数恒定位数: {amountjs({
         amount,
