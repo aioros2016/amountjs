@@ -29,6 +29,9 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extensions: ['.js', '.ts']
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({

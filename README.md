@@ -61,6 +61,18 @@ import amountjs from 'amountjs';
 
     npm run build:webpack
 
+## API
+
+| 属性           | 类型            | 必传  | 默认值   | 描述                             |
+|--------------|---------------|-----|-------|--------------------------------|
+| amount       | string、number | 是   | -     | 需要处理的值                         |
+| separate     | boolean       | 否   | false | 千位分隔                           |
+| showPlusMark | boolean       | 否   | false | 显示正数前的加号                       |
+| digitsType   | string        | 否   | split | 小数限制位数时的类型。split：截断；float：四舍五入 |
+| maxDigits    | number        | 否   | -     | 小数位最大长度                        |
+| minDigits    | number        | 否   | -     | 小数位最小长度，不足补0                   |
+| unit         | boolean       | 否   | false | 显示RMB货币单位                      |
+
 ## 反馈
 
 如在使用过程中，遇到问题或发现bug，欢迎提交issue或者发邮件给<a href="mailto:d_iii@aliyun.com">我</a>

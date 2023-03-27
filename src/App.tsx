@@ -31,7 +31,7 @@ function App() {
       <div className="label">小数最小位数(四舍五入): {amountjs({
         amount,
         digitsType: 'float',
-        minDigits: 0
+        minDigits: 3
       })}</div>
       <div className="label">小数恒定位数: {amountjs({
         amount,
@@ -56,6 +56,9 @@ function App() {
         amount,
         unit: true,
         maxDigits: 2
+      })}</div>
+      <div className="label">无处理: {amountjs({
+        amount
       })}</div>
     </div>
   );

@@ -14,17 +14,17 @@ import { AmountOptions } from "./typings";
  * @param maxDigits 小数最大长度
  * @param minDigits 小数最小长度
  * @param unit 显示货币单位
- * @param lang toLocaleString编码语言
  */
-export default function amountjs({ amount, separate, showPlusMark, digitsType = 'split', maxDigits, minDigits, unit, lang = "en-US" }: AmountOptions) {
+export default function amountjs({ amount, separate, showPlusMark, digitsType = 'split', maxDigits, minDigits, unit }: AmountOptions) {
     if (typeof maxDigits === 'number' && typeof minDigits === 'number' && minDigits > maxDigits) {
         console.warn('小数最大长度必须大于小数最小长度');
         return amount;
     }
     if (amount && !isNaN(Number(amount) as number)) {
-        amount = Number(amount);
-        let { number, decimal } = beforeHandleDigits({amount, unit})
-        const separateNumber = handleSeparate({number, lang})
+        amount = amount.toString()
+        let decimal = amount.split('.')[1] ?? ''
+        let { number } = beforeHandleDigits({amount, unit})
+        const separateNumber = handleSeparate({number})
         const integer = (separate ? separateNumber : number.toString()).split(".")[0];
         decimal = separate ? (separateNumber.split('.')[1] ?? '') : decimal;
         decimal = handleMinDigits({minDigits, decimal});
