@@ -47,9 +47,33 @@ export function handleMinDigits ({minDigits = -1, decimal}: HandleMinDigits) {
  */
 export function handleMaxDigits ({digitsType, maxDigits = -1, decimal}: HandleMaxDigits) {
   if (typeof maxDigits === 'number' && maxDigits > -1) {
-    return decimal?.length < maxDigits ? decimal : digitsType === 'split' ? decimal.substring(0, maxDigits) : Number('1.' + decimal).toFixed(maxDigits).split('.')[1];
+    const tempInteger = 1
+    if (decimal?.length < maxDigits) {
+      return {
+        decimal,
+        incremental: false
+      }
+    }
+    if (digitsType === 'split') {
+      return {
+        decimal: decimal.substring(0, maxDigits),
+        incremental: false
+      }
+    }
+    if (digitsType === 'float') {
+      const result = Number(tempInteger + '.' + decimal).toFixed(maxDigits).split('.')
+      const floatInteger = result[0]
+      const floatDecimal = result[1]
+      return {
+        decimal: floatDecimal,
+        incremental: Number(floatInteger) > tempInteger
+      }
+    }
   }
-  return decimal
+  return {
+    decimal,
+    incremental: false
+  }
 }
 
 /**

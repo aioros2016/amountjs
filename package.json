@@ -1,6 +1,6 @@
 {
   "name": "amountjs",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "keywords": [
     "number",
     "amount",
@@ -24,7 +24,7 @@
     "@types/node": "^16.11.60",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "amountjs": "^1.1.6",
+    "amountjs": "^1.2.1",
     "big.js": "^6.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -61,8 +61,8 @@
     "@types/big.js": "^6.1.6",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
-    "ts-loader": "^9.4.1",
-    "webpack": "^5.74.0",
+    "ts-loader": "^9.4.2",
+    "webpack": "^5.76.3",
     "webpack-cli": "^4.10.0"
   }
 }
