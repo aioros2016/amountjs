@@ -32,3 +32,15 @@ export interface AfterHandleDigits {
   showPlusMark?: Pick<AmountOptions, 'showPlusMark'>[keyof Pick<AmountOptions, 'showPlusMark'>];
   unit?: Pick<AmountOptions, 'unit'>[keyof Pick<AmountOptions, 'unit'>];
 }
+
+export interface CalcDecimalOtherType {
+  number: string;
+  separateNumber: string;
+}
+
+export interface CalcIntegerOtherType {
+  separateNumber: string;
+  number: string;
+  incremental: boolean;
+}
+

@@ -1,11 +1,17 @@
 /*
  * @Author: lizhigang
  * @Date: 2022-09-22 13:08:29
+ * @update: 2023-03-28 16:28:00
  * @Description: amountjs主模块
  */
-import { handleSeparate, handleMinDigits, handleMaxDigits, beforeHandleDigits, afterHandleDigits } from "./util";
+import {
+    handleSeparate,
+    beforeHandleDigits,
+    afterHandleDigits,
+    calcDecimal,
+    calcInteger
+} from "./util";
 import { AmountOptions } from "./typings";
-import big from "big.js";
 
 /**
  * 货币格式化
@@ -27,19 +33,13 @@ export default function amountjs({ amount, separate, showPlusMark, digitsType = 
     }
     if (amount && !isNaN(Number(amount) as number)) {
         amount = amount.toString().trim()
-        let decimal = amount.split('.')[1] ?? ''
-        let { number } = beforeHandleDigits({amount, unit})
+        const number = beforeHandleDigits({amount, unit})
         const separateNumber = handleSeparate({number})
-        let integer = (separate ? separateNumber : number.toString()).split(".")[0];
-        decimal = separate ? (separateNumber.split('.')[1] ?? '') : decimal;
-        decimal = handleMinDigits({minDigits, decimal});
-        const {decimal: tempDecimal, incremental} = handleMaxDigits({digitsType, maxDigits, decimal});
-        decimal = tempDecimal;
-        integer = incremental ? big(integer).plus(1).toString() : integer
-        let digits = decimal ? `${integer}.${decimal}` : integer;
+        const {decimal, incremental} = calcDecimal({number, separate, digitsType, maxDigits, minDigits, separateNumber});
+        const integer = calcInteger({separate, separateNumber, number, incremental})
         return afterHandleDigits({
             amount,
-            digits,
+            digits: decimal ? `${integer}.${decimal}` : integer,
             showPlusMark,
             unit
         });

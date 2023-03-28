@@ -3,8 +3,9 @@
  * @Date: 2023-03-24 19:55:57
  * @Description: 工具方法
  */
-import {AfterHandleDigits, BeforeHandleDigits, HandleMaxDigits, HandleMinDigits, HandleSeparate} from "./type";
+import {AfterHandleDigits, BeforeHandleDigits, HandleMaxDigits, HandleMinDigits, HandleSeparate, CalcDecimalOtherType,CalcIntegerOtherType} from "./type";
 import big from "big.js";
+import {AmountOptions} from "./typings";
 
 /**
  * 千位分隔 处理千位分隔
@@ -81,18 +82,14 @@ export function handleMaxDigits ({digitsType, maxDigits = -1, decimal}: HandleMa
  * @param amount 原始金额
  * @param unit 是否显示单位
  */
-export function beforeHandleDigits ({amount, unit}: BeforeHandleDigits): {
-  number: string
-} {
+export function beforeHandleDigits ({amount, unit}: BeforeHandleDigits): string {
   let number;
   if (unit) {
     number = Number(amount) >= 100000000 ? big(amount).div(100000000).toString() : Number(amount) >= 10000 ? big(amount).div(10000).toString() : amount;
   } else {
     number = amount;
   }
-  return {
-    number
-  }
+  return number
 }
 
 /**
@@ -110,4 +107,37 @@ export function afterHandleDigits ({ amount, digits, showPlusMark, unit }: After
     digits = Number(amount) >= 100000000 ? `${digits}亿` : Number(amount) >= 10000 ? `${digits}万` : `${digits}元`;
   }
   return digits
+}
+
+/**
+ * 计算小数
+ * @param number 计算后的金额字符串
+ * @param separate 千位分隔
+ * @param maxDigits 小数最大长度
+ * @param minDigits 小数最小长度
+ * @param digitsType 小数类型(split: 截断、float: 四舍五入)
+ * @param separateNumber 千位分隔字符串
+ */
+export function calcDecimal ({number, separate, maxDigits, minDigits, digitsType, separateNumber}: Pick<AmountOptions,  'separate' | 'maxDigits' | 'minDigits' | 'digitsType'> & CalcDecimalOtherType) {
+  let decimal = number.split('.')[1] ?? ''
+  decimal = separate ? (separateNumber.split('.')[1] ?? '') : decimal;
+  decimal = handleMinDigits({minDigits, decimal});
+  const {decimal: result, incremental} = handleMaxDigits({digitsType, maxDigits, decimal});
+  decimal = result;
+  return {
+    decimal,
+    incremental
+  }
+}
+
+/**
+ * 计算整数
+ * @param separate 千位分隔
+ * @param separateNumber 千位分隔字符串
+ * @param number 计算后的金额字符串
+ * @param incremental 整数位是否加一
+ */
+export function calcInteger ({separate, separateNumber, number, incremental}: Pick<AmountOptions, 'separate'> & CalcIntegerOtherType) {
+  const integer = (separate ? separateNumber : number).split(".")[0];
+  return incremental ? big(integer).plus(1).toString() : integer
 }

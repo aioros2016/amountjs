@@ -57,6 +57,15 @@ function App() {
         unit: true,
         maxDigits: 2
       })}</div>
+      <div className="label">加入所有参数: {amountjs({
+        amount,
+        unit: true,
+        digitsType: 'float',
+        maxDigits: 15,
+        minDigits: 4,
+        showPlusMark: true,
+        separate: true
+      })}</div>
       <div className="label">无处理: {amountjs({
         amount
       })}</div>
