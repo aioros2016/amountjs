@@ -62,7 +62,7 @@ export function handleMaxDigits ({digitsType, maxDigits = -1, decimal}: HandleMa
       }
     }
     if (digitsType === 'float') {
-      const result = Number(tempInteger + '.' + decimal).toFixed(maxDigits).split('.')
+      const result = big(tempInteger + '.' + decimal).toFixed(maxDigits).split('.')
       const floatInteger = result[0]
       const floatDecimal = result[1]
       return {
