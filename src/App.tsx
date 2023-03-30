@@ -36,7 +36,7 @@ function App() {
       <div className="label">小数恒定位数: {amountjs({
         amount,
         maxDigits: 2,
-        minDigits: 2
+        minDigits: 3
       })}</div>
       <div className="label">千位分隔并且小数恒定位数: {amountjs({
         amount,

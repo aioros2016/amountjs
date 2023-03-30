@@ -6,6 +6,8 @@
  */
 import {AmountOptions} from "./typings";
 
+export type DigitsType = 'split' | 'float';
+
 export interface BeforeHandleDigits {
   amount: string;
   unit?: true;
@@ -20,9 +22,9 @@ export interface HandleMinDigits {
   decimal: string;
 }
 
-export interface HandleMaxDigits {
-  digitsType: Pick<AmountOptions, 'digitsType'>[keyof Pick<AmountOptions, 'digitsType'>]
-  maxDigits?: Pick<AmountOptions, 'maxDigits'>[keyof Pick<AmountOptions, 'maxDigits'>];
+export interface HandleMaxDigits<T> {
+  digitsType: T;
+  maxDigits?: number;
   decimal: string;
 }
 
@@ -33,9 +35,10 @@ export interface AfterHandleDigits {
   unit?: Pick<AmountOptions, 'unit'>[keyof Pick<AmountOptions, 'unit'>];
 }
 
-export interface CalcDecimalOtherType {
+export interface CalcDecimalOtherType<T> {
   number: string;
   separateNumber: string;
+  digitsType: T;
 }
 
 export interface CalcIntegerOtherType {
@@ -43,4 +46,9 @@ export interface CalcIntegerOtherType {
   number: string;
   incremental: boolean;
 }
+
+export type If<C extends 'split' | 'float'> = C extends 'float' ? {
+  decimal: string;
+  incremental: boolean;
+} : string;
 

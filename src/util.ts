@@ -3,7 +3,17 @@
  * @Date: 2023-03-24 19:55:57
  * @Description: 工具方法
  */
-import {AfterHandleDigits, BeforeHandleDigits, HandleMaxDigits, HandleMinDigits, HandleSeparate, CalcDecimalOtherType,CalcIntegerOtherType} from "./type";
+import {
+  AfterHandleDigits,
+  BeforeHandleDigits,
+  HandleMaxDigits,
+  HandleMinDigits,
+  HandleSeparate,
+  CalcDecimalOtherType,
+  CalcIntegerOtherType,
+  DigitsType,
+  If
+} from "./type";
 import big from "big.js";
 import {AmountOptions} from "./typings";
 
@@ -46,35 +56,28 @@ export function handleMinDigits ({minDigits = -1, decimal}: HandleMinDigits) {
  * @param maxDigits 小数最大位数
  * @param decimal 小数
  */
-export function handleMaxDigits ({digitsType, maxDigits = -1, decimal}: HandleMaxDigits) {
-  if (typeof maxDigits === 'number' && maxDigits > -1) {
-    const tempInteger = 1
-    if (decimal?.length < maxDigits) {
-      return {
-        decimal,
-        incremental: false
-      }
-    }
-    if (digitsType === 'split') {
-      return {
-        decimal: decimal.substring(0, maxDigits),
-        incremental: false
-      }
-    }
-    if (digitsType === 'float') {
+export function handleMaxDigits <T extends DigitsType>({digitsType, maxDigits = -1, decimal}: HandleMaxDigits<T>) {
+  const tempInteger = 1
+  if (digitsType === 'float') {
+    if (decimal?.length > maxDigits && maxDigits !== -1) {
       const result = big(tempInteger + '.' + decimal).toFixed(maxDigits).split('.')
       const floatInteger = result[0]
       const floatDecimal = result[1]
       return {
         decimal: floatDecimal,
         incremental: Number(floatInteger) > tempInteger
-      }
+      } as If<T>
+    } else {
+      return {
+        decimal: decimal,
+        incremental: false
+      } as If<T>
     }
   }
-  return {
-    decimal,
-    incremental: false
+  if (digitsType === 'split' && maxDigits !== -1) {
+    return decimal.substring(0, maxDigits) as If<T>
   }
+  return decimal as If<T>
 }
 
 /**
@@ -118,16 +121,11 @@ export function afterHandleDigits ({ amount, digits, showPlusMark, unit }: After
  * @param digitsType 小数类型(split: 截断、float: 四舍五入)
  * @param separateNumber 千位分隔字符串
  */
-export function calcDecimal ({number, separate, maxDigits, minDigits, digitsType, separateNumber}: Pick<AmountOptions,  'separate' | 'maxDigits' | 'minDigits' | 'digitsType'> & CalcDecimalOtherType) {
+export function calcDecimal <T extends DigitsType>({number, separate, maxDigits, minDigits, digitsType, separateNumber}: Pick<AmountOptions,  'separate' | 'maxDigits' | 'minDigits'> & CalcDecimalOtherType<T>) {
   let decimal = number.split('.')[1] ?? ''
   decimal = separate ? (separateNumber.split('.')[1] ?? '') : decimal;
   decimal = handleMinDigits({minDigits, decimal});
-  const {decimal: result, incremental} = handleMaxDigits({digitsType, maxDigits, decimal});
-  decimal = result;
-  return {
-    decimal,
-    incremental
-  }
+  return handleMaxDigits({digitsType, maxDigits, decimal});
 }
 
 /**

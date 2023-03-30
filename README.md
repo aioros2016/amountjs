@@ -72,6 +72,7 @@ import amountjs from 'amountjs';
 | maxDigits    | number        | 否   | -     | 小数位最大长度                        |
 | minDigits    | number        | 否   | -     | 小数位最小长度，不足补0                   |
 | unit         | boolean       | 否   | false | 显示RMB货币单位                      |
+| noWarn         | boolean       | 否   | false | 是否显示控制台的警告信息                   |
 
 ## 反馈
 

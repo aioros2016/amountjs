@@ -28,8 +28,12 @@ export declare interface AmountOptions {
    * 显示货币单位
    */
   unit?: true;
+  /**
+   * 控制台是否显示警告信息
+   */
+  noWarn?: boolean;
 }
 
-declare function amountjs({ amount, separate, showPlusMark, digitsType = 'split', maxDigits, minDigits, unit }: AmountOptions): string | number;
+declare function amountjs({ amount, separate, showPlusMark, digitsType = 'split', maxDigits, minDigits, unit, noWarn = false }: AmountOptions): string | number;
 
 export default amountjs;
