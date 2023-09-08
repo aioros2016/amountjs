@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-// import amountjs from 'amountjs';
-import amountjs from "./core";
+import amountjs from 'amountjs';
+// import amountjs from "./core";
 
 function App() {
   const [amount, setAmount] = useState("0");

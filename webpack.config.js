@@ -17,7 +17,9 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     filename: "index.js",
     library: "amountjs",
-    libraryTarget: "umd"
+    libraryTarget: "umd",
+    umdNamedDefine: true,
+    globalObject: "this"
   },
   module: {
     rules: [
