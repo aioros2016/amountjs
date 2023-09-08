@@ -74,6 +74,12 @@ import amountjs from 'amountjs';
 | unit         | boolean       | 否   | false | 显示RMB货币单位                      |
 | noWarn         | boolean       | 否   | false | 是否显示控制台的警告信息                   |
 
+## 兼容
+
+![React](https://static.lizhigang.cn/img/react.png)
+![Vue](https://static.lizhigang.cn/img/vue.png)
+![Next.js](https://static.lizhigang.cn/img/nextjs.png)
+
 ## 反馈
 
 如在使用过程中，遇到问题或发现bug，欢迎提交issue或者发邮件给<a href="mailto:d_iii@aliyun.com">我</a>
