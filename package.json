@@ -1,6 +1,6 @@
 {
   "name": "amountjs",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "keywords": [
     "number",
     "amount",
@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@types/big.js": "^6.1.6",
-    "amountjs": "^1.2.7",
+    "amountjs": "^1.2.8",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "ts-loader": "^9.4.2",
