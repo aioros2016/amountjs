@@ -26,7 +26,7 @@ export function handleSeparate ({ number }: HandleSeparate) {
   const decimal = number.split('.')[1]
   const reverseInteger = integer.split('').reverse()
   const separate = reverseInteger.map((number, index) => {
-    if (index % 3 === 0 && index > 0) {
+    if (index % 3 === 0 && index > 0 && !isNaN(Number(number))) {
       number += ','
     }
     return number
