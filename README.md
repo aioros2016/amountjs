@@ -1,12 +1,6 @@
-# amount.js
+# amountjs
 
-**一个专注于处理数字与货币显示的小型ts库**
-
-## 特性
-
-- 小而快
-- 使用异常简单，由于Ts加持，api都有语法提示
-- 体积只有7.42KB，经过gzip压缩后，体积将进一步压缩至3.29KB
+一个专注于数字与人民币金额展示的轻量格式化函数库。
 
 ## 安装
 
@@ -14,74 +8,74 @@
 npm i amountjs
 ```
 
-## 导入
+## 快速开始
 
-```javascript
+```ts
 import amountjs from 'amountjs';
+
+amountjs({ amount: 1000, separate: true });
+// => '1,000'
 ```
 
-## 使用
+如果你使用 CommonJS：
 
-库导出单个函数amountjs，必传项接收类型为number或string的值
+```js
+const amountjs = require('amountjs');
+```
 
-千位分隔：
+包对外导出单个默认函数，发布入口为 `dist/index.js`，类型入口为 `dist/index.d.ts`。
 
-    amountjs({amount: 1000, separate: true}) => 1,000
+## 常见用法
 
-小数最大位数：
+```ts
+amountjs({ amount: 100.978, maxDigits: 2 });
+// => '100.97'
 
-    amountjs({amount: 100.978, maxDigits: 2}) => 100.97
+amountjs({ amount: 123.678, maxDigits: 2, digitsType: 'float' });
+// => '123.68'
 
-小数最小位数：
+amountjs({ amount: 100, minDigits: 2 });
+// => '100.00'
 
-    amountjs({amount: 100, minDigits: 2}) => 100.00
+amountjs({ amount: 100, showPlusMark: true });
+// => '+100'
 
-显示正数前的加号：
-
-    amountjs({amount: 100, showPlusMark: true}) => +100
-
-显示货币单位：
-
-    amountjs({amount: 100000000, unit: true}) => 1亿
-货币单位目前最大支持显示到亿
-
-小数最大位数类型(截断 | 四舍五入)：
-
-    amountjs({amount: 123.678, maxDigits: 2, digitsType: 'float'}) => 123.68
-
-以上特性可以相互组合，来得到您最终想要的效果！
-
-## 预览
-
-    npm run start
-
-## 构建
-
-请使用webpack来构建本项目
-
-    npm run build:webpack
+amountjs({ amount: 100000000, unit: true });
+// => '1亿'
+```
 
 ## API
 
-| 属性           | 类型            | 必传  | 默认值   | 描述                             |
-|--------------|---------------|-----|-------|--------------------------------|
-| amount       | string、number | 是   | -     | 需要处理的值                         |
-| separate     | boolean       | 否   | false | 千位分隔                           |
-| showPlusMark | boolean       | 否   | false | 显示正数前的加号                       |
-| digitsType   | string        | 否   | split | 小数限制位数时的类型。split：截断；float：四舍五入 |
-| maxDigits    | number        | 否   | -     | 小数位最大长度                        |
-| minDigits    | number        | 否   | -     | 小数位最小长度，不足补0                   |
-| unit         | boolean       | 否   | false | 显示RMB货币单位                      |
-| noWarn         | boolean       | 否   | false | 是否显示控制台的警告信息                   |
+| 属性 | 类型 | 必传 | 默认值 | 说明 |
+| --- | --- | --- | --- | --- |
+| `amount` | `string \| number` | 是 | - | 需要处理的值 |
+| `separate` | `boolean` | 否 | `false` | 是否开启千位分隔 |
+| `showPlusMark` | `boolean` | 否 | `false` | 正数前是否显示 `+` |
+| `digitsType` | `'split' \| 'float'` | 否 | `'split'` | 小数超长时的处理方式：`split` 为截断，`float` 为四舍五入 |
+| `maxDigits` | `number` | 否 | - | 小数最大长度 |
+| `minDigits` | `number` | 否 | - | 小数最小长度，不足时补 `0` |
+| `unit` | `boolean` | 否 | `false` | 是否追加人民币单位（`元` / `万` / `亿`） |
+| `noWarn` | `boolean` | 否 | `false` | 是否关闭控制台 warning |
 
-## 兼容
+## 行为说明
 
-![React](https://static.lizhigang.cn/img/react.png)
-![Vue](https://static.lizhigang.cn/img/vue.png)
-![Next.js](https://static.lizhigang.cn/img/nextjs.png)
+- `digitsType` 只在设置了 `maxDigits` 时才会体现“截断 / 四舍五入”的差异。
+- `unit: true` 时：
+  - 小于 `10000` 的值追加 `元`
+  - 大于等于 `10000` 且小于 `100000000` 的值使用 `万`
+  - 大于等于 `100000000` 的值使用 `亿`
+- 当 `amount` 不是合法数字（或数字字符串）时，函数会返回原始输入，并在默认情况下输出 warning。
+- 当 `minDigits > maxDigits` 时，函数会返回原始输入，并在默认情况下输出 warning。
+
+## Demo 与开发
+
+- `pnpm start`：启动 CRA demo 页面（当前 demo 直接消费本地 `src/core.ts`）。
+- `pnpm build`：构建 demo 应用。
+- `pnpm build:webpack`：构建用于发布的库产物到 `dist/`。
+- `npm pack --dry-run`：检查最终 npm 包将包含哪些文件。
 
 ## 反馈
 
-如在使用过程中，遇到问题或发现bug，欢迎提交issue或者发邮件给<a href="mailto:d_iii@aliyun.com">我</a>
+如在使用过程中遇到问题或发现 bug，欢迎提交 issue 或发邮件给 <a href="mailto:d_iii@aliyun.com">我</a>。
 
 

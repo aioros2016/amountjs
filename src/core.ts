@@ -25,14 +25,14 @@ import { AmountOptions } from "./typings";
  * @param noWarn 控制台是否显示警告信息
  */
 export default function amountjs({ amount, separate, showPlusMark, digitsType = 'split', maxDigits, minDigits, unit, noWarn = false }: AmountOptions) {
-    if (!amount || (typeof amount === 'string' && !amount.trim())) {
+    if ((amount === null || amount === undefined) || (typeof amount === 'string' && !amount.trim())) {
         return amount
     }
     if (typeof maxDigits === 'number' && typeof minDigits === 'number' && minDigits > maxDigits) {
         !noWarn && console.warn(`WARN: maxDigits:${maxDigits},minDigits:${minDigits} 小数最大长度必须大于小数最小长度`);
         return amount;
     }
-    if (amount && !isNaN(Number(amount) as number)) {
+    if (!isNaN(Number(amount) as number)) {
         amount = amount.toString().trim()
         const number = beforeHandleDigits({amount, unit})
         const separateNumber = handleSeparate({number})

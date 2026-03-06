@@ -1,21 +1,24 @@
-/// <reference types="react-scripts" />
-export declare interface AmountOptions {
+export type AmountValue = number | string;
+
+export type AmountDigitsType = 'split' | 'float';
+
+export interface AmountOptions {
   /**
    * 金额
    */
-  amount: number | string;
+  amount: AmountValue;
   /**
    * 千位分隔
    */
-  separate?: true;
+  separate?: boolean;
   /**
    * 显示金额前的+
    */
-  showPlusMark?: true;
+  showPlusMark?: boolean;
   /**
    * 小数类型(split: 截断、float: 四舍五入)
    */
-  digitsType?: 'split' | 'float';
+  digitsType?: AmountDigitsType;
   /**
    * 小数最大长度
    */
@@ -27,13 +30,13 @@ export declare interface AmountOptions {
   /**
    * 显示货币单位
    */
-  unit?: true;
+  unit?: boolean;
   /**
    * 控制台是否显示警告信息
    */
   noWarn?: boolean;
 }
 
-declare function amountjs({ amount, separate, showPlusMark, digitsType = 'split', maxDigits, minDigits, unit, noWarn = false }: AmountOptions): string | number;
+declare function amountjs(options: AmountOptions): string | AmountValue;
 
 export default amountjs;

@@ -10,7 +10,7 @@ export type DigitsType = 'split' | 'float';
 
 export interface BeforeHandleDigits {
   amount: string;
-  unit?: true;
+  unit?: boolean;
 }
 
 export interface HandleSeparate {

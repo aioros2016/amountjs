@@ -17,6 +17,7 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     filename: "index.js",
     library: "amountjs",
+    libraryExport: "default",
     libraryTarget: "umd",
     umdNamedDefine: true,
     globalObject: "this"
@@ -41,18 +42,6 @@ module.exports = {
         {
           from: path.resolve(__dirname, './src/typings.d.ts'),
           to: path.resolve(__dirname, './dist/index.d.ts')
-        },
-        {
-          from: path.resolve(__dirname, './README.md'),
-          to: path.resolve(__dirname, './dist/README.md')
-        },
-        {
-          from: path.resolve(__dirname, './package.json'),
-          to: path.resolve(__dirname, './dist/package.json')
-        },
-        {
-          from: path.resolve(__dirname, './LICENSE'),
-          to: path.resolve(__dirname, './dist/LICENSE')
         }
       ]
     })

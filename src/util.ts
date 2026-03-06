@@ -86,9 +86,11 @@ export function handleMaxDigits <T extends DigitsType>({digitsType, maxDigits = 
  * @param unit 是否显示单位
  */
 export function beforeHandleDigits ({amount, unit}: BeforeHandleDigits): string {
+  const amountNumber = Number(amount);
+  const absAmountNumber = Math.abs(amountNumber);
   let number;
   if (unit) {
-    number = Number(amount) >= 100000000 ? big(amount).div(100000000).toString() : Number(amount) >= 10000 ? big(amount).div(10000).toString() : amount;
+    number = absAmountNumber >= 100000000 ? big(amount).div(100000000).toString() : absAmountNumber >= 10000 ? big(amount).div(10000).toString() : amount;
   } else {
     number = amount;
   }
@@ -103,11 +105,12 @@ export function beforeHandleDigits ({amount, unit}: BeforeHandleDigits): string 
  * @param unit 是否显示单位
  */
 export function afterHandleDigits ({ amount, digits, showPlusMark, unit }: AfterHandleDigits) {
+  const absAmountNumber = Math.abs(Number(amount));
   if (showPlusMark) {
     digits = (Number(amount) > 0 ? "+" : "") + digits;
   }
   if (unit) {
-    digits = Number(amount) >= 100000000 ? `${digits}亿` : Number(amount) >= 10000 ? `${digits}万` : `${digits}元`;
+    digits = absAmountNumber >= 100000000 ? `${digits}亿` : absAmountNumber >= 10000 ? `${digits}万` : `${digits}元`;
   }
   return digits
 }
@@ -137,5 +140,5 @@ export function calcDecimal <T extends DigitsType>({number, separate, maxDigits,
  */
 export function calcInteger ({separate, separateNumber, number, incremental}: Pick<AmountOptions, 'separate'> & CalcIntegerOtherType) {
   const integer = (separate ? separateNumber : number).split(".")[0];
-  return incremental ? big(integer).plus(1).toString() : integer
+  return incremental ? big(integer).plus(integer.startsWith('-') ? -1 : 1).toString() : integer
 }

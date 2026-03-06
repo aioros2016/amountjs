@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import amountjs from 'amountjs';
-// import amountjs from "./core";
+import amountjs from './core';
 
 function App() {
   const [amount, setAmount] = useState("0");
@@ -10,6 +9,7 @@ function App() {
 
   return (
     <div className="App">
+      <div className="label">Demo source: local <code>src/core.ts</code></div>
       <div>在此输入金额：<input onInput={onInputAmount} /></div>
       <div className="label">千位分隔: {amountjs({
         amount,

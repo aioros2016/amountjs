@@ -1,6 +1,19 @@
 {
   "name": "amountjs",
   "version": "1.2.8",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "number",
     "amount",
@@ -35,6 +48,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:webpack": "webpack --config ./webpack.config.js",
+    "prepack": "pnpm build:webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
